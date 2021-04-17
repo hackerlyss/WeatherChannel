@@ -12,47 +12,65 @@ var forecastContainer = document.getElementById('forecastContainer');
 
 currentDate.textContent = moment().format("M/DD/YYYY")
 
-
-
-
-
-//pulling from weather API to get info..
-function getForecast() {
+function getCoordinate() {
     var insertCity = inputCity.value.trim()
     
     localStorage.setItem("insertCity", JSON.stringify(insertCity));
     var stringCity = JSON.parse(localStorage.getItem("insertCity"));
-    // console.log(stringCity)
-    var requestForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + stringCity+ "&appid=638e975d4bf76d78330b0c4022872572" ;
-    fetch(requestForecast)
+    var requestCoord = "http://api.openweathermap.org/geo/1.0/direct?q=" + stringCity +  "&appid=638e975d4bf76d78330b0c4022872572";
+    fetch(requestCoord)
     .then(function (response) {
         return response.json();
     })
     .then(function (data) {
         console.log(data)
-        for (var i=0; i< data.length; i++) {
-            var createTableRow = document.createElement('tr');
-            var tableData = document.createElement('td');
-            var cardInfo = document.createElement('p');
-            cardInfo.textContent = data[i].list.dt_txt;
-
-            tableData.appendChild(cardInfo);
-            createTableRow.appendChild(tableData);
-            forecastContainer.appendChild(createTableRow);
+        for (var i=0; i<data.length; i++) {
+            localStorage.setItem("cityLat",JSON.stringify(data[i].lat))
+            localStorage.setItem("cityLong",JSON.stringify(data[i].lon))
         }
-    })
-    }
+        
+        })
+}
+
+
+
+//pulling from weather API to get info..
+// function getForecast() {
+//     var getLat = JSON.parse(localStorage.getItem("cityLat"));
+//     var getLon = JSON.parse(localStorage.getItem("cityLong"));
+//     // console.log(stringCity)
+//     var requestForecast = "https://api.openweathermap.org/data/2.5/onecall?lat=" + getLat +"&lon=" + getLon+ "&appid=638e975d4bf76d78330b0c4022872572" ;
+//     fetch(requestForecast)
+//     .then(function (response) {
+//         return response.json();
+//     })
+//     .then(function (data) {
+//         console.log(data)
+//         for (var i=0; i< data.length; i++) {
+//             var createTableRow = document.createElement('tr');
+//             var tableData = document.createElement('td');
+//             var cardInfo = document.createElement('p');
+//             cardInfo.textContent = data[i].list.dt_txt;
+
+//             tableData.appendChild(cardInfo);
+//             createTableRow.appendChild(tableData);
+//             forecastContainer.appendChild(createTableRow);
+//         }
+//     })
+//     }
+
 function getCurrent() {
-    var insertCity = inputCity.value.trim();
-    localStorage.setItem("insertCity", JSON.stringify(insertCity));
-    var stringCity = JSON.parse(localStorage.getItem("insertCity"));
-    var requestCurrent = "api.openweathermap.org/data/2.5/weather?q=" + stringCity + "&appid=638e975d4bf76d78330b0c4022872572";
+    var getLat = JSON.parse(localStorage.getItem("cityLat"));
+    var getLon = JSON.parse(localStorage.getItem("cityLong"));
+    var requestCurrent = "https://api.openweathermap.org/data/2.5/onecall?lat=" + getLat +"&lon=" + getLon+ "&appid=638e975d4bf76d78330b0c4022872572" ;
     fetch(requestCurrent)
     .then(function (response) {
         return response.json();
     })
     .then(function (data) {
+        console.log(data)
         for (var i = 0; data.length; i++) {
+            
             
         }
     })
@@ -60,4 +78,7 @@ function getCurrent() {
 
 
 
-searchCity.addEventListener('click',getForecast)
+searchCity.addEventListener('click',() => {
+    getCoordinate();
+    getCurrent();
+})
