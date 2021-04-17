@@ -38,28 +38,28 @@ function getCoordinate() {
 
 
 //pulling from weather API to get info..
-function getForecast() {
+// function getForecast() {
 
-    var getLat = JSON.parse(localStorage.getItem("cityLat"));
-    var getLon = JSON.parse(localStorage.getItem("cityLong"));
-    // console.log(stringCity)
-    var requestForecast = "https://api.openweathermap.org/data/2.5/onecall?lat=" + getLat +"&lon=" + getLon+ "&appid=638e975d4bf76d78330b0c4022872572" ;
-    fetch(requestForecast)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        console.log(data)
-            var createTableRow = document.createElement('tr');
-            var tableData = document.createElement('td');
-            var cardInfo = document.createElement('p');
-            cardInfo.textContent = data.
+//     var getLat = JSON.parse(localStorage.getItem("cityLat"));
+//     var getLon = JSON.parse(localStorage.getItem("cityLong"));
+//     // console.log(stringCity)
+//     var requestForecast = "https://api.openweathermap.org/data/2.5/onecall?lat=" + getLat +"&lon=" + getLon+ "&appid=638e975d4bf76d78330b0c4022872572" ;
+//     fetch(requestForecast)
+//     .then(function (response) {
+//         return response.json();
+//     })
+//     .then(function (data) {
+//         console.log(data)
+//             var createTableRow = document.createElement('tr');
+//             var tableData = document.createElement('td');
+//             var cardInfo = document.createElement('p');
+//             cardInfo.textContent = data.
 
-            tableData.appendChild(cardInfo);
-            createTableRow.appendChild(tableData);
-            forecastContainer.appendChild(createTableRow);
-      }
-    )}
+//             tableData.appendChild(cardInfo);
+//             createTableRow.appendChild(tableData);
+//             forecastContainer.appendChild(createTableRow);
+//       }
+//     )}
     
 
 function getCurrent() {
@@ -73,43 +73,41 @@ function getCurrent() {
     })
     .then(function (data) {
         console.log(data) 
-           
+           var weatherIcon = data.current.weather[0].icon;
             cityTemp.textContent = data.current.temp + "°F";
             cityHumid.textContent = data.current.humidity + "%";
             cityWind.textContent = data.current.wind_speed + " mph";
-            currentIcon.textContent = data.current.weather[0].icon;
-
+            cityUV.textContent = data.current.uvi;
+            
             // cityUV.setAttribute = ("class", "text-white");
             if (data.current.uvi <= 2) {
-                cityUV.textContent = data.current.uvi;
-                cityUV.setAttribute("class", "badge bg-#198754");
+           
+                cityUV.style.backgroundColor = "green";
+
+            } else if (data.current.uvi <=7) {
+                
+                cityUV.style.backgroundColor ="#ffc107";
+            } else {
+               
+                cityUV.style.backgroundColor = "red";
+            }
+            var iconImg = $("<img>");
+            iconImg.attr("src","https://openweather.map.org/img/w/" + weatherIcon + ".png")
+            currentIcon.appendTo(iconImg);
+            for (var i =0; i < data.daily[5]; i++) {
+                var dayCard = document.createElement('tr');
+                dayCard.textContent = "Temp: " + data.daily[i].temp +"°F"
+                forecastContainer.appendChild(dayCard)
 
             }
-            if (3 <= data.current.uvi <= 5) {
-                cityUV.textContent = data.current.uvi;
-                cityUV.setAttribute("class", "badge bg-warning");
-            }
-            if (6 <= data.current.uvi <=7) {
-                cityUV.textContent = data.current.uvi;
-                cityUV.setAttribute("class","badge bg-#0dcaf0");
-            }
-            if(8 <= data.current.uvi <=10) {
-                cityUV.textContent = data.current.uvi;
-                cityUV.setAttribute("class","badge bg-danger")
-            }
-            if (data.current.uvi > 10) {
-                cityUV.textContent = data.current.uvi;
-                cityUV.setAttribute("class", "badge bg-#6f42c1")
-            }
-            
+        })}      
         
-    })
-}
+    
 
 
 
 searchCity.addEventListener('click',() => {
     getCoordinate();
     getCurrent();
-    getForecast();
+    
 })
