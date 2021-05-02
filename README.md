@@ -5,4 +5,4 @@ I have made an input box for the user to type in a city name, the button next to
 There is a separte section for current weather and another for the 5-day forecast.
 Here is the GitHub repo: (https://github.com/hackerlyss/WeatherChannel)
 Here is the webpage:(https://hackerlyss.github.io/WeatherChannel/)
-Here is a [preview of the page](./assets/images/screenshot.png?raw=true)
+Here is a ![preview of the page](./assets/images/SitePreview.png))
