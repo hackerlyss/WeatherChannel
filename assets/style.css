@@ -1,0 +1,19 @@
+#forecastContainer {
+    display: none;
+}
+
+#big-header {
+  background-color: #0dcaf0;
+  padding: 2rem;
+  color: white;
+}
+
+.card {
+    background-color: #0dcaf0;
+    color: white;
+}
+
+#current-box {
+  border: 2px solid #0dcaf0;
+  border-radius: 5px;
+}

@@ -14,20 +14,27 @@
   
 </head>
 <body>
-    <h1 class="display-2">Welcome to your Weather Channel</h1>
+    <h1 class="display-2" id="big-header">Welcome to your Weather Channel</h1>
 
     <div class="container">
         <div class="row d-flex justify-content-left  p-2">
+          <!-- City Search bar -->
           <div class="col-8 col-sm-4 m-0">
               <h2>Search for your city:</h2>
               <div class="input-group mb-3">
                 <input type="text" id="inputCity" class="form-control" placeholder="San Diego">
                 <button class="btn btn-outline btn-info" type="button" id="searchCity">🔎</button>
               </div>
-              <div id="city-container"></div>
+              <div id="city-container">
+                <ul class="list-group" id="city-history">
+                  
+                </ul>
+              </div>
             
           </div>
-          <div class="col-12 col-sm-4 " id="testing">
+
+          <!-- Current Weather -->
+          <div class="col-12 col-sm-4 " id="current-box">
             <h3 id="cityName"></h3><span id="current-icon"></span><h3 id="currentDate"></h3>
             <p >Tempurature: <span id="cityTemp"></span></p>
             <p>Humidity: <span id="cityHumid"></span></p>
@@ -36,10 +43,78 @@
            
             
           </div>
-          
-            <h3>5-day Forecast</h3>
+          <!-- 5-day Forecast  -->
+           
             <div id="forecastContainer" class="row mx-auto text-center">
-              
+              <h3>5-day Forecast</h3>
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title" id="date0"></h5>
+                      <p class="card-text">
+                        <ul class="list-group">
+                          <li class="list-group-item" id="temp0"></li>
+                          <li class="list-group-item" id="humid0"></li>
+                        </ul>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title" id="date1"></h5>
+                      <p class="card-text">
+                        <ul class="list-group" >
+                          <li class="list-group-item" id="temp1"></li>
+                          <li class="list-group-item" id="humid1"></li>
+                        </ul>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title" id="date2"></h5>
+                      <p class="card-text">
+                        <ul class="list-group" >
+                          <li class="list-group-item" id="temp2"></li>
+                          <li class="list-group-item" id="humid2"></li>
+                        </ul>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title" id="date3"></h5>
+                      <p class="card-text" >
+                        <ul class="list-group">
+                          <li class="list-group-item" id="temp3"></li>
+                          <li class="list-group-item" id="humid3"></li>
+                        </ul>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title" id="date4"></h5>
+                      <p class="card-text">
+                        <ul class="list-group">
+                          <li class="list-group-item" id="temp4"></li>
+                          <li class="list-group-item" id="humid4"></li>
+                        </ul>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
          
 
         </div>
